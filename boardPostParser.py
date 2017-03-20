@@ -79,23 +79,26 @@ class BoardPostParsor:
 		trs = soup.find_all('tr')
 		
 		for tr in trs:
-			vote = str(tr.find('td', class_='voting small').find('div')['data-apollo-up-votes']) \
-					+ '/' + str(tr.find('td', class_='voting small').find('div')['data-apollo-down-votes'])
-			title = str(tr.find('td', class_='title').find('span', class_='title-span').string)
-			link = 'http://boards.na.leagueoflegends.com' + str(tr.find('a', class_='title-link')['href'])
-			views = str(tr.find('td', class_='view-counts byline').find('span', class_='number opaque')['data-short-number'])
-			replies = str(tr.find('td', class_='num-comments byline').find('span', class_='number opaque')['data-short-number'])
-			title = title.strip().replace('#', '')
-			timestamp = str(tr.find('td', class_='title').find('span', class_='timeago')['title'].replace('T', ' ').split('.')[0])
-			#print timestamp
-			res.append({
-					'vote': vote, 
-					'title': title,
-					'link': link,
-					'views': views,
-					'replies': replies,
-					'timestamp': timestamp
-				})
+			try:
+				vote = str(tr.find('td', class_='voting small').find('div')['data-apollo-up-votes']) \
+						+ '/' + str(tr.find('td', class_='voting small').find('div')['data-apollo-down-votes'])
+				title = str(tr.find('td', class_='title').find('span', class_='title-span').string)
+				link = 'http://boards.na.leagueoflegends.com' + str(tr.find('a', class_='title-link')['href'])
+				views = str(tr.find('td', class_='view-counts byline').find('span', class_='number opaque')['data-short-number'])
+				replies = str(tr.find('td', class_='num-comments byline').find('span', class_='number opaque')['data-short-number'])
+				title = title.strip().replace('#', '')
+				timestamp = str(tr.find('td', class_='title').find('span', class_='timeago')['title'].replace('T', ' ').split('.')[0])
+				#print timestamp
+				res.append({
+						'vote': vote, 
+						'title': title,
+						'link': link,
+						'views': views,
+						'replies': replies,
+						'timestamp': timestamp
+					})
+			except Exception,e:
+				print e
 		if len(res) > 0:
 			return res
 		else:
