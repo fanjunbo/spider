@@ -30,7 +30,7 @@ class Logger:
 
 
 
-class BoardPostParsor:
+class BoardsPostGetter:
 	def __init__(self, start, end, workers, timeout):
 		self.start = start
 		self.end = end
@@ -141,7 +141,7 @@ class BoardPostParsor:
 			t.start()
 
 if __name__ == '__main__':
-	spider = BoardPostParsor(start = 2, end=16921, workers=10, timeout=20)
+	spider = BoardsPostGetter(start = 2, end=16921, workers=10, timeout=20)
 	spider.startAll()
 
 
